@@ -19,6 +19,36 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://roofalert.be/diensten/kachels-en-schouwen/</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://roofalert.be/diensten/goot-en-gevel/</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://roofalert.be/diensten/storm-en-lekschade/</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://roofalert.be/diensten/zonnepanelen/</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://roofalert.be/diensten/tulikivi-onderhoud/</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://roofalert.be/contact/</loc>
     <lastmod>2026-09-10</lastmod>
     <changefreq>yearly</changefreq>
