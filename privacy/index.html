@@ -1,26 +1,21 @@
-<!--
-  IDENTO WEBSITE STARTER — privacybeleid
-  Alles tussen vierkante haken vul je per klant in; de antwoorden komen uit
-  de ingevulde PROJECT-BRIEF.md (blanco fiche: project-intake.md).
-  Vervang https://[DOMEIN]/ door de echte URL, hier en in /sitemap.xml
-  en /robots.txt.
-
-  LET OP: deze tekst is een technisch correcte, generieke basis (GDPR-proof
-  qua structuur en inhoud) maar geen juridisch advies. Laat de klant ze zelf
-  nalezen — of iemand die daarin thuis is — voor de site live gaat, zeker
-  als er extra tools bijkomen die gegevens verzamelen (bv. een
-  boekingssysteem van een derde partij of een nieuwsbrieftool).
--->
 <!DOCTYPE html>
 <html lang="nl">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Privacybeleid — [BEDRIJFSNAAM]</title>
-  <meta name="description" content="Hoe [BEDRIJFSNAAM] omgaat met je gegevens: contactformulier, cookies en analytics.">
-  <meta name="robots" content="noindex, follow">
-  <link rel="canonical" href="https://[DOMEIN]/privacy/">
+  <title>Privacybeleid — RoofAlert</title>
+  <meta name="description" content="Hoe RoofAlert omgaat met je gegevens: het contact- en offerteformulier, cookies en analytics.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://roofalert.be/privacy/">
   <meta name="theme-color" content="#15120e">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="RoofAlert">
+  <meta property="og:locale" content="nl_BE">
+  <meta property="og:title" content="Privacybeleid — RoofAlert">
+  <meta property="og:description" content="Hoe RoofAlert omgaat met je gegevens: het contact- en offerteformulier, cookies en analytics.">
+  <meta property="og:url" content="https://roofalert.be/privacy/">
+  <meta property="og:image" content="https://roofalert.be/assets/img/logo.png">
 
   <link rel="icon" href="../favicon.ico" sizes="any">
   <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
@@ -29,16 +24,18 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap">
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 
+  <!-- Volgorde is belangrijk: brand -> layout -> components -> pagina -->
   <link rel="stylesheet" href="../assets/css/brand.css">
   <link rel="stylesheet" href="../assets/css/layout.css">
   <link rel="stylesheet" href="../assets/css/components.css">
   <link rel="stylesheet" href="../assets/css/pages/privacy.css">
+
 </head>
-<body class="contact-page">
+<body>
 
 <a class="skip-link" href="#main-content">Ga naar inhoud</a>
 
@@ -89,7 +86,7 @@
               <span><b class="mega__t">Zonnepanelen</b><span class="mega__d">Geplaatst samen met je dakwerken, in één beweging</span></span>
             </a>
 
-            <a class="mega__link" href="../#contact">
+            <a class="mega__link" href="../contact/">
               <span class="mega__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/><path d="M9 9h6M9 12.5h4"/></svg></span>
               <span><b class="mega__t">Vrijblijvend advies</b><span class="mega__d">Niet zeker wat je nodig hebt? Bel of mail ons gerust</span></span>
             </a>
@@ -98,9 +95,9 @@
       </div>
       <a href="../diensten/tulikivi-onderhoud/">Tulikivi</a>
       <a href="../#team">Over ons</a>
-      <a href="../#contact">Contact</a>
+      <a href="../contact/">Contact</a>
     </nav>
-    <a href="../#contact" class="btn btn-primary hdr__cta">Offerte aanvragen</a>
+    <a href="../offerte/" class="btn btn-primary hdr__cta">Offerte aanvragen</a>
     <button class="hdr__burger" id="burgerBtn" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Menu openen">
       <span></span><span></span><span></span>
     </button>
@@ -124,17 +121,17 @@
   <section class="section section-first">
     <div class="wrap">
       <div class="prose reveal">
-        <p><em>Laatst bijgewerkt: [DATUM LAATSTE WIJZIGING].</em></p>
+        <p><em>Laatst bijgewerkt: 10 september 2026.</em></p>
 
         <h2>Wie is verantwoordelijk voor je gegevens?</h2>
-        <p>[BEDRIJFSNAAM], [ADRES], ondernemingsnummer [ONDERNEMINGSNUMMER]. Voor alle vragen over privacy kan je terecht op <a href="mailto:[EMAIL]">[EMAIL]</a> of <a href="tel:[TELEFOON-E164]">[TELEFOON]</a>.</p>
+        <p>RoofAlert, Heidebadlaan 11, 2900 Schoten, ondernemingsnummer BE0743.480.056. Voor alle vragen over privacy kan je terecht op <a href="mailto:info@roofalert.be">info@roofalert.be</a> of <a href="tel:+32499892542">0499 89 25 42</a>.</p>
 
         <h2>Welke gegevens verzamelen we, en waarom?</h2>
-        <p>Wanneer je het contact- of aanvraagformulier op deze website invult, geef je ons je naam, telefoonnummer, e-mailadres, en eventueel een bericht (bijvoorbeeld over je vraag of een gewenste datum). We gebruiken die gegevens uitsluitend om je vraag of aanvraag te behandelen en je daarover te contacteren. We verkopen of delen deze gegevens nooit met derden voor commerciële doeleinden.</p>
+        <p>Via het contactformulier verzamelen we je naam, e-mailadres, eventueel je telefoonnummer, en je bericht. Via het offerteformulier verzamelen we daarnaast ook je adres (straat, postcode en gemeente), om welke dienst het gaat, en — als je die zelf toevoegt — foto's van je project. We gebruiken die gegevens uitsluitend om je vraag of aanvraag te behandelen en je daarover te contacteren. We verkopen of delen deze gegevens nooit met derden voor commerciële doeleinden.</p>
         <p>De wettelijke basis hiervoor is je toestemming (je vult het formulier zelf vrijwillig in) en ons gerechtvaardigd belang om je aanvraag te kunnen beantwoorden.</p>
 
         <h2>Hoe lang bewaren we je gegevens?</h2>
-        <p>Berichten en aanvragen bewaren we niet langer dan nodig om je aanvraag af te handelen en eventuele navraag achteraf mogelijk te maken — in de praktijk maximaal 2 jaar, tenzij een langere bewaartermijn wettelijk verplicht is (bijvoorbeeld boekhoudkundige verplichtingen bij een effectieve opdracht of aankoop).</p>
+        <p>Berichten en offerteaanvragen — inclusief eventuele foto's — bewaren we niet langer dan nodig om je aanvraag af te handelen en eventuele navraag achteraf mogelijk te maken: in de praktijk maximaal 2 jaar, tenzij een langere bewaartermijn wettelijk verplicht is (bijvoorbeeld boekhoudkundige verplichtingen bij een effectieve opdracht).</p>
 
         <h2>Cookies en analytics</h2>
         <p>Deze website plaatst geen cookies zonder je toestemming. Bij je eerste bezoek vragen we of we anonieme, analytische cookies mogen gebruiken (Google Analytics) om te begrijpen hoe bezoekers de site gebruiken — bijvoorbeeld welke pagina's populair zijn. Deze cookies worden pas geladen nadat je op "Accepteren" klikt.</p>
@@ -150,7 +147,7 @@
         <p>Je kan je keuze op elk moment wijzigen via de link "Cookie-instellingen" onderaan elke pagina. Weiger je cookies, dan werkt de website nog steeds volledig — je mist enkel de anonieme bezoekstatistieken aan onze kant.</p>
 
         <h2>Je rechten</h2>
-        <p>Je hebt het recht om je gegevens in te kijken, te laten verbeteren of te laten verwijderen, en om je toestemming op elk moment in te trekken. Neem daarvoor contact op via <a href="mailto:[EMAIL]">[EMAIL]</a>. Ben je niet tevreden over hoe we je vraag behandelen, dan kan je een klacht indienen bij de <a href="https://www.gegevensbeschermingsautoriteit.be/" target="_blank" rel="noopener">Belgische Gegevensbeschermingsautoriteit</a>.</p>
+        <p>Je hebt het recht om je gegevens in te kijken, te laten verbeteren of te laten verwijderen, en om je toestemming op elk moment in te trekken. Neem daarvoor contact op via <a href="mailto:info@roofalert.be">info@roofalert.be</a>. Ben je niet tevreden over hoe we je vraag behandelen, dan kan je een klacht indienen bij de <a href="https://www.gegevensbeschermingsautoriteit.be/" target="_blank" rel="noopener">Belgische Gegevensbeschermingsautoriteit</a>.</p>
 
         <h2>Wijzigingen</h2>
         <p>We kunnen dit privacybeleid af en toe aanpassen, bijvoorbeeld wanneer we een nieuwe tool toevoegen aan de website. De datum bovenaan deze pagina geeft aan wanneer dat voor het laatst gebeurde.</p>
@@ -163,7 +160,7 @@
   <div class="wrap">
     <div class="ftr__bot" style="margin-top:0; padding-top:0; border-top:none;">
       <span>© <span id="jaar">2026</span> RoofAlert · BE0743.480.056</span>
-      <span><a href="./" aria-current="page">Privacybeleid</a> · <a href="#" data-cookie-settings>Cookie-instellingen</a></span>
+      <span><a href="../privacy/" aria-current="page">Privacybeleid</a> · <a href="#" data-cookie-settings>Cookie-instellingen</a></span>
       <span>Webdesign by Idento</span>
     </div>
   </div>
@@ -171,7 +168,7 @@
 
 <div class="bar">
   <a href="tel:+32499892542" class="btn btn-ghost">Bel ons</a>
-  <a href="../#contact" class="btn btn-primary">Offerte</a>
+  <a href="../offerte/" class="btn btn-primary">Offerte</a>
 </div>
 
 <script src="../assets/js/cookie-consent.js" data-privacy-url="./" defer></script>

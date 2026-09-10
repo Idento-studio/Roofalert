@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Contact — RoofAlert</title>
-  <meta name="description" content="Contacteer RoofAlert: bel of mail Dieter en Kristiaan rechtstreeks, of stuur een bericht via het contactformulier.">
+  <title>Offerte aanvragen — RoofAlert</title>
+  <meta name="description" content="Vraag vrijblijvend een offerte aan voor dakwerken, kachels en schouwen, goot en gevel, zonnepanelen of Tulikivi-onderhoud. Voeg gerust foto's toe.">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://roofalert.be/contact/">
+  <link rel="canonical" href="https://roofalert.be/offerte/">
   <meta name="theme-color" content="#15120e">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="RoofAlert">
   <meta property="og:locale" content="nl_BE">
-  <meta property="og:title" content="Contact — RoofAlert">
-  <meta property="og:description" content="Contacteer RoofAlert: bel of mail Dieter en Kristiaan rechtstreeks, of stuur een bericht via het contactformulier.">
-  <meta property="og:url" content="https://roofalert.be/contact/">
+  <meta property="og:title" content="Offerte aanvragen — RoofAlert">
+  <meta property="og:description" content="Vraag vrijblijvend een offerte aan voor dakwerken, kachels en schouwen, goot en gevel, zonnepanelen of Tulikivi-onderhoud. Voeg gerust foto's toe.">
+  <meta property="og:url" content="https://roofalert.be/offerte/">
   <meta property="og:image" content="https://roofalert.be/assets/img/logo.png">
 
   <link rel="icon" href="../favicon.ico" sizes="any">
@@ -32,7 +32,7 @@
   <link rel="stylesheet" href="../assets/css/brand.css">
   <link rel="stylesheet" href="../assets/css/layout.css">
   <link rel="stylesheet" href="../assets/css/components.css">
-  <link rel="stylesheet" href="../assets/css/pages/contact.css">
+  <link rel="stylesheet" href="../assets/css/pages/offerte.css">
 
   <script type="application/ld+json">
   {
@@ -40,7 +40,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://roofalert.be/" },
-      { "@type": "ListItem", "position": 2, "name": "Contact", "item": "https://roofalert.be/contact/" }
+      { "@type": "ListItem", "position": 2, "name": "Offerte aanvragen", "item": "https://roofalert.be/offerte/" }
     ]
   }
   </script>
@@ -105,9 +105,9 @@
       </div>
       <a href="../diensten/tulikivi-onderhoud/">Tulikivi</a>
       <a href="../#team">Over ons</a>
-      <a href="./" aria-current="page">Contact</a>
+      <a href="../contact/">Contact</a>
     </nav>
-    <a href="../offerte/" class="btn btn-primary hdr__cta">Offerte aanvragen</a>
+    <a href="./" class="btn btn-primary hdr__cta" aria-current="page">Offerte aanvragen</a>
     <button class="hdr__burger" id="burgerBtn" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Menu openen">
       <span></span><span></span><span></span>
     </button>
@@ -116,29 +116,29 @@
 
 <header class="page-header">
   <div class="wrap">
-    <span class="eyebrow">Contact</span>
-    <h1>Een vraag? We horen het graag.</h1>
-    <p>Voor een offerte gebruik je best onze <a href="../offerte/" style="text-decoration:underline;">offertepagina</a> — daar kan je meteen ook foto's toevoegen. Voor al de rest: stuur ons hier gerust een bericht.</p>
+    <span class="eyebrow">Offerte aanvragen</span>
+    <h1>Vertel ons over je project, wij bellen je terug.</h1>
+    <p>Hoe meer je hieronder invult, hoe gerichter we je kunnen helpen. Foto's van de situatie zijn altijd welkom — dat scheelt vaak een eerste plaatsbezoek.</p>
     <nav class="breadcrumb" aria-label="Kruimelpad">
       <a href="../">Home</a>
       <span aria-hidden="true">›</span>
-      <span aria-current="page">Contact</span>
+      <span aria-current="page">Offerte aanvragen</span>
     </nav>
   </div>
 </header>
 
 <main id="main-content">
-  <section class="section section-first" id="bericht">
+  <section class="section section-first" id="aanvraag">
     <div class="wrap">
       <div class="contact-grid">
 
         <div>
           <div class="reply-note">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/></svg>
-            <span><strong>We antwoorden meestal binnen de dag.</strong> <br>Gaat het om stormschade of een actief lek? Bel dan meteen — dat gaat sneller dan dit formulier.</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M12 7v5l3 2"/><circle cx="12" cy="12" r="9"/></svg>
+            <span><strong>We antwoorden meestal binnen de dag.</strong> <br>Gaat het om stormschade of een actief lek? Bel dan liever meteen Dieter of Kristiaan.</span>
           </div>
 
-          <form class="form-card reveal" id="contactForm" data-ajax-form method="post" action="mailto:info@roofalert.be" enctype="text/plain">
+          <form class="form-card reveal" id="offerteForm" data-ajax-form method="post" action="mailto:info@roofalert.be" enctype="text/plain">
             <div class="form-row">
               <div class="field">
                 <label for="naam">Naam <span class="field-req" aria-hidden="true">*</span></label>
@@ -146,8 +146,8 @@
                 <span class="field-error" id="naam-error"></span>
               </div>
               <div class="field">
-                <label for="telefoon">Telefoonnummer</label>
-                <input type="tel" id="telefoon" name="telefoon" aria-describedby="telefoon-error" placeholder="04XX XX XX XX" autocomplete="tel" inputmode="tel">
+                <label for="telefoon">Telefoonnummer <span class="field-req" aria-hidden="true">*</span></label>
+                <input type="tel" id="telefoon" name="telefoon" aria-describedby="telefoon-error" placeholder="04XX XX XX XX" autocomplete="tel" inputmode="tel" required>
                 <span class="field-error" id="telefoon-error"></span>
               </div>
             </div>
@@ -159,13 +159,49 @@
             </div>
 
             <div class="field">
-              <label for="bericht">Bericht <span class="field-req" aria-hidden="true">*</span></label>
-              <textarea id="bericht" name="bericht" aria-describedby="bericht-error" rows="6" placeholder="Waarmee kunnen we je helpen?" required></textarea>
+              <label for="straat">Straat en huisnummer</label>
+              <input type="text" id="straat" name="straat" placeholder="Kerkstraat 12" autocomplete="address-line1">
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="postcode">Postcode</label>
+                <input type="text" id="postcode" name="postcode" aria-describedby="postcode-error" placeholder="2900" inputmode="numeric" autocomplete="postal-code">
+                <span class="field-error" id="postcode-error"></span>
+              </div>
+              <div class="field">
+                <label for="gemeente">Gemeente</label>
+                <input type="text" id="gemeente" name="gemeente" placeholder="Schoten" autocomplete="address-level2">
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="dienst">Waarover gaat het?</label>
+              <select id="dienst" name="dienst" autocomplete="off">
+                <option value="" selected>Kies een dienst (optioneel)</option>
+                <option value="Dakwerken">Dakwerken</option>
+                <option value="Kachels en schouwen">Kachels en schouwen</option>
+                <option value="Goot en gevel">Goot en gevel</option>
+                <option value="Storm- of lekschade">Storm- of lekschade</option>
+                <option value="Zonnepanelen">Zonnepanelen</option>
+                <option value="Tulikivi-onderhoud">Tulikivi-onderhoud</option>
+                <option value="Iets anders">Iets anders</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="bericht">Vertel iets over je project <span class="field-req" aria-hidden="true">*</span></label>
+              <textarea id="bericht" name="bericht" aria-describedby="bericht-error" rows="5" placeholder="Wat is er aan de hand, en sinds wanneer?" required></textarea>
               <span class="field-error" id="bericht-error"></span>
             </div>
 
-            <!-- Verborgen veld: welke pagina bracht de bezoeker hier? Wordt
-                 automatisch ingevuld door contact-form.js. -->
+            <div class="field">
+              <label for="fotos">Foto's toevoegen (optioneel)</label>
+              <input type="file" id="fotos" name="fotos" accept="image/*" multiple>
+            </div>
+
+            <!-- Verborgen veld: welke pagina bracht de bezoeker naar de
+                 offertepagina? Wordt automatisch ingevuld door
+                 contact-form.js op basis van document.referrer. -->
             <input type="hidden" name="bron" value="">
 
             <!-- Honeypot tegen spambots. Laat leeg — mensen zien dit veld niet. -->
@@ -174,16 +210,16 @@
               <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
             </div>
 
-            <button type="submit" class="btn btn-primary">Verstuur bericht</button>
-            <p class="form-hint"><span class="field-req" aria-hidden="true">*</span> Verplicht. Je gegevens gebruiken we enkel om je vraag te beantwoorden — zie ons <a href="../privacy/">privacybeleid</a>.</p>
+            <button type="submit" class="btn btn-primary">Vraag je offerte aan</button>
+            <p class="form-hint"><span class="field-req" aria-hidden="true">*</span> Verplicht. Je gegevens gebruiken we enkel om je aanvraag te behandelen — zie ons <a href="../privacy/">privacybeleid</a>.</p>
 
-            <div class="form-status" id="formStatus" aria-live="polite"></div>
+            <div class="form-status" id="offerteFormStatus" aria-live="polite"></div>
 
             <noscript>
               <p class="form-status is-visible is-error">
                 JavaScript staat uit. Versturen opent dan rechtstreeks je mailprogramma, zonder
-                controle op tikfouten — en sommige browsers blokkeren dat. Lukt het niet, mail ons
-                dan op <a href="mailto:info@roofalert.be">info@roofalert.be</a>
+                controle op tikfouten en zonder je foto's — voeg die dan zelf toe als bijlage.
+                Lukt het niet, mail ons dan op <a href="mailto:info@roofalert.be">info@roofalert.be</a>
                 of bel <a href="tel:+32499892542">0499 89 25 42</a>.
               </p>
             </noscript>
@@ -191,11 +227,11 @@
         </div>
 
         <div class="info-card reveal">
-          <div class="info-row">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-7.4 7-12.4A7 7 0 0 0 5 8.6C5 13.6 12 21 12 21Z"/><circle cx="12" cy="8.6" r="2.4"/></svg>
+          <div class="info-row" style="align-items:flex-start;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg>
             <div>
-              <h4>Adres</h4>
-              <p>Heidebadlaan 11, 2900 Schoten</p>
+              <h4>Stormschade of een actief lek?</h4>
+              <p>Bel dan rechtstreeks — dat gaat sneller dan dit formulier. Schadegevallen krijgen bij ons voorrang, ook buiten de kantooruren.</p>
             </div>
           </div>
           <div class="info-row">
@@ -213,18 +249,13 @@
               <p><a href="mailto:info@roofalert.be">info@roofalert.be</a></p>
             </div>
           </div>
-          <div class="info-row" style="align-items:flex-start;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M12 7v5l3 2"/><circle cx="12" cy="12" r="9"/></svg>
+          <div class="info-row">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-7.4 7-12.4A7 7 0 0 0 5 8.6C5 13.6 12 21 12 21Z"/><circle cx="12" cy="8.6" r="2.4"/></svg>
             <div>
-              <h4>Bereikbaarheid</h4>
-              <p>Je krijgt Dieter of Kristiaan rechtstreeks aan de lijn — geen callcenter. Bij stormschade of een actief lek krijg je voorrang, ook buiten de kantooruren.</p>
+              <h4>Adres</h4>
+              <p>Heidebadlaan 11, 2900 Schoten</p>
             </div>
           </div>
-
-          <a class="route-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=Heidebadlaan+11%2C+2900+Schoten" target="_blank" rel="noopener">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-7.4 7-12.4A7 7 0 0 0 5 8.6C5 13.6 12 21 12 21Z"/><circle cx="12" cy="8.6" r="2.4"/></svg>
-            Route via Google Maps
-          </a>
         </div>
 
       </div>
@@ -244,7 +275,7 @@
 
 <div class="bar">
   <a href="tel:+32499892542" class="btn btn-ghost">Bel ons</a>
-  <a href="../offerte/" class="btn btn-primary">Offerte</a>
+  <a href="./" class="btn btn-primary">Offerte</a>
 </div>
 
 <script src="../assets/js/cookie-consent.js" data-privacy-url="../privacy/" defer></script>

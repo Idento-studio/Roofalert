@@ -273,6 +273,28 @@
 .quote-attr .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--muted-accent); }
 
 
+/* — Antwoordtijd-notitie boven een formulier (contact + offerte) —
+   min-width:0 op de tekst is nodig omdat een flex-item anders nooit smaller
+   wordt dan zijn langste onafgebroken inhoud, en op smalle schermen de
+   rand van het vak uit duwt in plaats van netjes af te breken. */
+.reply-note {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-5);
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--bg);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.reply-note svg { flex-shrink: 0; color: var(--accent-ink); }
+.reply-note span { min-width: 0; }
+.reply-note strong { color: var(--text-strong); font-weight: 600; }
+
+
 /* — Contact — */
 .contact-grid {
   display: grid;
@@ -283,6 +305,12 @@
 @media (max-width: 900px) {
   .contact-grid { grid-template-columns: 1fr; }
 }
+/* Een grid-track is standaard nooit smaller dan het minimum-content van
+   zijn breedste kind. Eén onhandig element (hier: een file-input met een
+   eigen, niet-krimpbare "Kies bestanden"-knop) kan zo de hele kolom — en
+   daarmee de pagina — breder maken dan het scherm. min-width:0 laat elk
+   grid-item wél netjes krimpen tot de kolombreedte. */
+.contact-grid > * { min-width: 0; }
 .form-card {
   background: var(--surface-raised);
   border: 1px solid var(--border);
@@ -300,7 +328,7 @@
   text-transform: uppercase;
   color: var(--text-muted);
 }
-.field input, .field textarea {
+.field input, .field textarea, .field select {
   font-family: var(--font-body);
   font-size: var(--fs-body);
   color: var(--text-strong);
@@ -311,12 +339,36 @@
   resize: vertical;
   transition: border-color 0.2s ease, background 0.2s ease;
 }
-.field input:focus, .field textarea:focus {
+.field select { appearance: none; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234A4238' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 0.9rem center; background-size: 16px;
+  padding-right: 2.5rem;
+}
+.field input:focus, .field textarea:focus, .field select:focus {
   outline: 3px solid var(--accent-ring);
   outline-offset: 1px;
   border-color: var(--accent-ink);
-  background: var(--surface-raised);
+  background-color: var(--surface-raised);
 }
+.field input[type="file"] {
+  padding: 0.6rem 0.7rem;
+  font-size: var(--fs-small);
+  cursor: pointer;
+}
+.field input[type="file"]::file-selector-button {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 0.9rem;
+  margin-right: 0.75rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.field input[type="file"]::file-selector-button:hover { background: var(--accent-ink); }
 .form-card .btn-primary { margin-top: var(--sp-6); width: 100%; }
 .form-hint { margin-top: var(--sp-3); font-size: 0.8125rem; color: var(--text-muted); }
 

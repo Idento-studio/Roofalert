@@ -1,30 +1,37 @@
 /* ==========================================================================
    contact-form.js — validatie en verzending van élk formulier met het
-   [data-ajax-form] attribuut op deze site (het reserveringsformulier op de
-   homepage én het contactformulier op /contact/ delen deze logica).
+   [data-ajax-form] attribuut op deze site: het contactformulier op
+   /contact/ en het uitgebreidere offerteformulier op /offerte/ (met
+   adresvelden en een foto-upload) delen deze logica. Een veld dat in een
+   bepaald formulier niet bestaat, wordt gewoon overgeslagen — vandaar dat
+   één script voor beide volstaat.
 
    ┌─ HIER STEL JE IN WAAR FORMULIEREN NAARTOE GAAN ───────────────────────┐
    │ ENDPOINT leeg laten  → de mailclient van de bezoeker opent met een    │
    │                        volledig ingevuld bericht. Werkt vandaag, en   │
-   │                        vereist geen account of server.                │
-   │ ENDPOINT invullen    → het bericht wordt op de achtergrond verstuurd  │
+   │                        vereist geen account of server. Bijlagen (de   │
+   │                        foto's bij een offerteaanvraag) kan een mailto-│
+   │                        link niet meesturen — de bezoeker krijgt dan   │
+   │                        een herinnering om ze zelf toe te voegen.      │
+   │ ENDPOINT invullen    → het bericht (en eventuele foto's) wordt op de  │
+   │                        achtergrond verstuurd via multipart/form-data, │
    │                        en de bezoeker blijft op de pagina. Zet hier   │
    │                        je Formspree-, Web3Forms- of Netlify-URL.      │
    │                        (Formspree: maak gratis een account op         │
    │                        formspree.io, koppel het e-mailadres van de    │
-   │                        zaak, en plak de endpoint-URL hieronder.)      │
+   │                        zaak, en plak de endpoint-URL hieronder. Let   │
+   │                        op: bestandsbijlagen zijn een betaalde         │
+   │                        Formspree-functie.)                            │
    └──────────────────────────────────────────────────────────────────────┘
 
-   Zonder JavaScript blijft het contactformulier werken via de gewone HTML-
-   submit naar het mailto-action-attribuut. Het reserveringsformulier op de
-   homepage heeft geen action (het bestaat pas dankzij JS) — vandaar de
-   zichtbare <noscript>-melding daar met telefoon en e-mail.
+   Zonder JavaScript blijft elk formulier werken via de gewone HTML-submit
+   naar het mailto-action-attribuut op het <form>-element zelf.
    ========================================================================== */
 (function () {
   'use strict';
 
   var ENDPOINT = '';
-  var MAIL_TO = '[EMAIL]';
+  var MAIL_TO = 'info@roofalert.be';
 
   var forms = document.querySelectorAll('[data-ajax-form]');
   if (!forms.length) return;
@@ -62,6 +69,11 @@
       if (!v) return 'Vul aan met hoeveel personen jullie komen.';
       if (parseInt(v, 10) < 1) return 'Minstens 1 persoon, uiteraard.';
       return null;
+    },
+    postcode: function (v, input) {
+      if (!v) return input.hasAttribute('required') ? 'Vul je postcode in.' : null;
+      if (!/^\d{4}$/.test(v.trim())) return 'Een Belgische postcode heeft 4 cijfers.';
+      return null;
     }
   };
 
@@ -71,6 +83,13 @@
     var statusEl = form.querySelector('.form-status');
     var submitBtn = form.querySelector('button[type="submit"]');
     form.setAttribute('novalidate', 'novalidate');
+
+    // Verborgen veld "bron": welke pagina de bezoeker naar dit formulier
+    // bracht. Enkel gezet als het veld leeg is, zodat een handmatig
+    // meegegeven waarde (bv. via een link met ?bron=...) voorrang houdt.
+    if (form.elements.bron && !form.elements.bron.value) {
+      form.elements.bron.value = document.referrer || 'Rechtstreeks (geen verwijzende pagina)';
+    }
 
     function fieldWrap(input) { return input.closest ? input.closest('.field') : null; }
 
@@ -130,11 +149,19 @@
     }
 
     // Verzamelt elk benoemd, niet-verborgen veld dat effectief in dit
-    // formulier bestaat (dus nooit het honeypot-veld "website").
-    var FIELD_ORDER = ['naam', 'email', 'telefoon', 'datum', 'personen', 'bericht'];
+    // formulier bestaat (dus nooit het honeypot-veld "website"). "bron" en
+    // "fotos" staan bewust niet in FIELD_LABELS: bron is metadata voor de
+    // e-mail-onderwerpregel, geen leesbare formulierregel, en foto's zijn
+    // bestanden, geen tekstwaarde (zie sendByMailClient/buildFormData).
+    var FIELD_ORDER = [
+      'naam', 'email', 'telefoon', 'straat', 'postcode', 'gemeente',
+      'dienst', 'datum', 'personen', 'bericht'
+    ];
     var FIELD_LABELS = {
       naam: 'Naam', email: 'E-mail', telefoon: 'Telefoon',
-      datum: 'Gewenste datum', personen: 'Aantal personen', bericht: 'Bericht'
+      straat: 'Straat en nummer', postcode: 'Postcode', gemeente: 'Gemeente',
+      dienst: 'Waarover gaat het', datum: 'Gewenste datum', personen: 'Aantal personen',
+      bericht: 'Bericht'
     };
     function values() {
       var v = {};
@@ -142,17 +169,30 @@
         var input = form.elements[name];
         if (input) v[name] = (input.value || '').trim();
       });
+      if (form.elements.bron) v.bron = form.elements.bron.value;
       return v;
+    }
+
+    // Bestanden (foto's): enkel relevant zodra ENDPOINT is ingesteld — een
+    // mailto-link kan geen bijlagen meesturen, dus daar krijgt de bezoeker
+    // in plaats daarvan een herinnering om ze zelf toe te voegen.
+    function selectedFiles() {
+      var input = form.elements.fotos;
+      return input && input.files ? input.files : [];
     }
 
     function sendByMailClient(v) {
       var lines = [];
       FIELD_ORDER.forEach(function (name) {
-        if (v[name] === undefined) return;
+        if (v[name] === undefined || v[name] === '') return;
         if (name === 'bericht') return; // apart onderaan toevoegen
-        lines.push(FIELD_LABELS[name] + ': ' + (v[name] || 'niet opgegeven'));
+        lines.push(FIELD_LABELS[name] + ': ' + v[name]);
       });
-      var body = lines.join('\n') + (v.bericht ? '\n\n' + v.bericht : '') + '\n';
+      if (v.bron) lines.push('Kwam via: ' + v.bron);
+      var files = selectedFiles();
+      var body = lines.join('\n') + (v.bericht ? '\n\n' + v.bericht : '') +
+        (files.length ? '\n\nP.S. Voeg de ' + files.length + ' foto(\'s) die je koos hieronder toe als bijlage — dat kan een mailto-link helaas niet automatisch.' : '') +
+        '\n';
 
       var href = 'mailto:' + MAIL_TO +
         '?subject=' + encodeURIComponent('Bericht via de website — ' + (v.naam || 'nieuwe aanvraag')) +
@@ -161,17 +201,32 @@
       window.location.href = href;
 
       setStatus('success',
-        '<strong>Bijna klaar.</strong> Je mailprogramma opent met het bericht al ingevuld — ' +
-        'je hoeft het enkel nog te versturen. Opent er niets? Mail ons dan rechtstreeks op ' +
+        '<strong>Bijna klaar.</strong> Je mailprogramma opent met het bericht al ingevuld' +
+        (files.length ? ' — voeg je foto\'s toe voor je verstuurt, dat lukt niet automatisch' : '') +
+        '. Opent er niets? Mail ons dan rechtstreeks op ' +
         '<a href="mailto:' + MAIL_TO + '">' + MAIL_TO + '</a>.');
+    }
+
+    // Met foto's: multipart/form-data zodat bestanden meekunnen. Zonder:
+    // gewoon JSON, lichter voor de meeste form-endpoints.
+    function buildRequestBody(v) {
+      var files = selectedFiles();
+      if (!files.length) {
+        return { body: JSON.stringify(v), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } };
+      }
+      var fd = new FormData();
+      Object.keys(v).forEach(function (name) { fd.append(name, v[name]); });
+      for (var i = 0; i < files.length; i++) fd.append('fotos', files[i]);
+      return { body: fd, headers: { 'Accept': 'application/json' } };
     }
 
     function sendByEndpoint(v) {
       busy(true);
+      var req = buildRequestBody(v);
       fetch(ENDPOINT, {
         method: 'POST',
-        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-        body: JSON.stringify(v)
+        headers: req.headers,
+        body: req.body
       }).then(function (res) {
         if (!res.ok) throw new Error('HTTP ' + res.status);
         form.reset();
@@ -182,7 +237,7 @@
       }).catch(function () {
         setStatus('error',
           '<strong>Het versturen lukte niet.</strong> Probeer het straks opnieuw, of bereik ons ' +
-          'rechtstreeks op <a href="tel:[TELEFOON-E164]">[TELEFOON]</a> of ' +
+          'rechtstreeks op <a href="tel:+32499892542">0499 89 25 42</a> of ' +
           '<a href="mailto:' + MAIL_TO + '">' + MAIL_TO + '</a>.');
       }).then(function () {
         busy(false);

@@ -7,7 +7,7 @@
 
 /* De page-header geeft bovenaan al lucht, dus de eerste sectie
    mag krapper beginnen dan de standaard --sp-9. */
-.contact-page .section-first { padding-top: var(--sp-8); }
+.section-first { padding-top: var(--sp-8); }
 
 /* — Routeknop onderaan de infokaart — */
 .route-link {
@@ -30,23 +30,6 @@
   transform: translateY(-2px);
 }
 .route-link svg { flex-shrink: 0; color: var(--accent-inverse); }
-
-/* — Antwoordtijd-notitie boven het formulier — */
-.reply-note {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-3);
-  margin-bottom: var(--sp-5);
-  padding: var(--sp-3) var(--sp-4);
-  background: var(--bg);
-  border-left: 3px solid var(--accent);
-  border-radius: var(--radius-sm);
-  font-size: var(--fs-small);
-  color: var(--text-muted);
-  line-height: 1.5;
-}
-.reply-note svg { flex-shrink: 0; color: var(--accent-ink); }
-.reply-note strong { color: var(--text-strong); font-weight: 600; }
 
 /* — Motion policy: contact-specifiek — */
 @media (prefers-reduced-motion: reduce) {

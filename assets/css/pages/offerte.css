@@ -1,0 +1,12 @@
+/* ==========================================================================
+   pages/offerte.css — uitsluitend voor offerte/index.html.
+   Het formulier, de infokaart en de velden zelf staan in components.css;
+   hier alleen wat paginagebonden is. Deelt de reply-note en route-link
+   styling met pages/contact.css.
+   ========================================================================== */
+
+.section-first { padding-top: var(--sp-8); }
+
+/* De info-card is hier bewust geen "praktische info"-kaartje maar leidt
+   eerst naar de telefoon bij spoed, vandaar de nadruk bovenaan. */
+.info-card .info-row:first-child h4 { color: var(--accent-inverse); }
