@@ -1,0 +1,27 @@
+/* ==========================================================================
+   pages/over-ons.css — uitsluitend voor over-ons/index.html.
+   Team- en partnerkaarten, "waarom"-kaarten en de introtekst staan
+   grotendeels al in components.css (.card, .team-grid, .partners, .chips,
+   .svc-card); hier alleen wat écht paginagebonden is.
+   ========================================================================== */
+
+.section-first { padding-top: var(--sp-8); }
+
+/* Zelfde knoppenrij als op de dienstpagina's (pages/dienst.css), hier
+   opnieuw gedefinieerd omdat deze pagina dat bestand niet laadt. */
+.dienst-hero-acts { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: var(--sp-5); }
+
+.verhaal { max-width: 46rem; }
+.verhaal > * + * { margin-top: var(--sp-4); }
+.verhaal p { color: var(--text-muted); line-height: 1.75; }
+
+.over-ons-head { max-width: 40rem; margin-bottom: var(--sp-6); }
+.over-ons-head h2 { margin-bottom: 0.6rem; }
+.over-ons-head p { color: var(--text-muted); line-height: 1.7; }
+
+/* De "waarom"-kaarten hergebruiken .svc-card (icoon + titel + tekst), maar
+   staan hier als gewone div's, niet als link — vandaar geen pijltje nodig
+   en de cursor gewoon default in plaats van pointer. */
+.why-grid .svc-card { cursor: default; }
+.why-grid .svc-card:hover { transform: none; box-shadow: none; border-color: var(--border); background: var(--surface); }
+.why-grid .svc-card:hover .svc-card__ic { background: var(--accent-veil); color: var(--accent-ink); }
