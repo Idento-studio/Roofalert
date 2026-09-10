@@ -107,9 +107,71 @@
 .acc-pad { padding: 0 1.15rem 1.25rem 1.15rem; }
 @media (min-width: 600px) { .acc-pad { padding-left: calc(1.15rem + 44px + 1rem); } }
 .acc-pad p { font-size: var(--fs-small); margin-bottom: 0.9rem; color: var(--text-muted); }
+.acc-links { display: flex; flex-wrap: wrap; gap: 0.55rem 1.6rem; }
 .acc-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.92rem; font-weight: 600; color: var(--accent-ink); }
 .acc-link svg { width: 16px; height: 16px; transition: transform 0.2s ease; }
 .acc-link:hover svg { transform: translateX(3px); }
+
+
+/* — Dienstkaarten — het overzicht op /diensten/ en de "andere diensten"-
+   blokken onderaan elke dienstpagina. Zelfde opbouw als een megamenu-item,
+   maar als kaart op een lichte ondergrond. — */
+.svc-grid { display: grid; gap: var(--sp-4); }
+@media (min-width: 620px) { .svc-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 960px) { .svc-grid { grid-template-columns: repeat(3, 1fr); } }
+.svc-card {
+  display: flex; align-items: flex-start; gap: 0.95rem;
+  padding: 1.35rem 1.3rem;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
+  transition: border-color 0.22s ease, background 0.22s ease, transform 0.18s var(--ease), box-shadow 0.3s var(--ease);
+}
+.svc-card:hover {
+  border-color: var(--accent-veil-strong); background: var(--surface-raised);
+  transform: translateY(-3px); box-shadow: var(--shadow-soft);
+}
+.svc-card__ic {
+  width: 42px; height: 42px; flex: none; border-radius: 11px;
+  background: var(--accent-veil); color: var(--accent-ink);
+  display: grid; place-items: center; transition: background 0.22s, color 0.22s;
+}
+.svc-card:hover .svc-card__ic { background: var(--accent); color: #fff; }
+.svc-card__ic svg { width: 22px; height: 22px; }
+.svc-card__body { flex: 1; min-width: 0; }
+.svc-card__t {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-family: var(--font-display); font-weight: 600; font-size: 1.08rem;
+  color: var(--text-strong); line-height: 1.25; margin-bottom: 0.3rem;
+}
+.svc-card__t svg { width: 15px; height: 15px; flex: none; color: var(--accent); transition: transform 0.2s ease; }
+.svc-card:hover .svc-card__t svg { transform: translateX(3px); }
+.svc-card__d { display: block; font-size: 0.9rem; line-height: 1.5; color: var(--text-muted); }
+.svc-card__badge {
+  display: inline-block; margin-top: 0.6rem; padding: 0.25rem 0.6rem; border-radius: 100px;
+  background: var(--accent-veil); color: var(--accent-ink);
+  font-size: 0.74rem; font-weight: 600; letter-spacing: 0.01em;
+}
+.svc-card--hl { border-color: var(--accent-veil-strong); background: var(--surface-raised); }
+
+
+/* — Stappen — "zo pakken we het aan" op de dienstpagina's. — */
+.steps { display: grid; gap: var(--sp-5); counter-reset: step; }
+@media (min-width: 620px) { .steps { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1000px) { .steps { grid-template-columns: repeat(4, 1fr); gap: var(--sp-4); } }
+.step { display: flex; flex-direction: column; gap: 0.6rem; }
+.step__n {
+  width: 40px; height: 40px; flex: none; border-radius: 50%;
+  background: var(--ink-900); color: var(--accent);
+  display: grid; place-items: center;
+  font-family: var(--font-display); font-weight: 600; font-size: 1.05rem;
+}
+.step h3 { font-size: 1.05rem; }
+.step p { font-size: 0.93rem; line-height: 1.6; color: var(--text-muted); }
+
+
+/* — Vinklijst op een lichte ondergrond (de donkere variant is .usp__list). — */
+.check-list { display: grid; gap: 0.7rem; }
+.check-list li { display: flex; gap: 0.7rem; align-items: flex-start; font-size: 0.97rem; color: var(--text); }
+.check-list svg { width: 18px; height: 18px; flex: none; margin-top: 4px; color: var(--accent); }
 
 
 /* — Team- en partnerkaarten — */
@@ -297,30 +359,9 @@
 .hours-table td:last-child { text-align: right; font-variant-numeric: tabular-nums; }
 
 
-/* — FAQ — */
-.faq-list { display: flex; flex-direction: column; gap: var(--sp-3); max-width: 760px; }
-.faq-item {
-  background: var(--surface-raised);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: var(--sp-5);
-}
-.faq-item summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-4);
-  cursor: pointer;
-  list-style: none;
-  font-family: var(--font-display);
-  font-size: 1.0625rem;
-  font-weight: 600;
-  color: var(--text-strong);
-}
-.faq-item summary::-webkit-details-marker { display: none; }
-.faq-item summary .faq-chevron { flex-shrink: 0; transition: transform 0.35s var(--ease); color: var(--accent-ink); }
-.faq-item[open] summary .faq-chevron { transform: rotate(135deg); }
-.faq-item p { margin-top: var(--sp-3); color: var(--text-muted); font-size: var(--fs-small); line-height: 1.6; }
+/* Veelgestelde vragen gebruiken de accordion hierboven (.acc), zodat er
+   één uitklappatroon op de site staat — inclusief de crosslinks in
+   .acc-links onderaan elk antwoord. */
 
 
 /* — Formulier: verplicht-markering, validatie en statusmelding — */
@@ -422,6 +463,8 @@
 /* — Motion policy: componenten — */
 @media (prefers-reduced-motion: reduce) {
   .nav-pulse-btn::before { animation: none !important; }
-  .btn, .quote-card, .faq-item summary .faq-chevron, .acc-body, .acc-ic, .acc-chev { transition: none; }
+  .btn, .quote-card, .acc-body, .acc-ic, .acc-chev { transition: none; }
+  .svc-card, .svc-card__ic, .svc-card__t svg { transition: none; }
+  .svc-card:hover { transform: none; }
   .cookie-banner { transition: none; }
 }

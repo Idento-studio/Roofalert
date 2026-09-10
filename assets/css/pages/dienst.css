@@ -1,0 +1,177 @@
+/* ==========================================================================
+   pages/dienst.css — GEDEELD door alle zes de dienstpagina's
+   (diensten/dakwerken/, /kachels-en-schouwen/, /goot-en-gevel/,
+   /storm-en-lekschade/, /zonnepanelen/, /tulikivi-onderhoud/).
+
+   Bewust één bestand in plaats van zes losse: die pagina's hebben exact
+   dezelfde opbouw en verschillen enkel in tekst en beeld. Eén bestand
+   betekent dat een aanpassing aan de opbouw meteen voor alle diensten
+   geldt. Wat écht bij één dienst hoort, hoort in een eigen bestand.
+   ========================================================================== */
+
+/* De page-header geeft bovenaan al lucht. */
+.section-first { padding-top: var(--sp-8); }
+
+/* — Kop van de pagina: knoppen onder de intro in de donkere page-header — */
+.dienst-hero-acts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: var(--sp-5);
+}
+
+/* — Inleiding: tekst links, beeld + directe hulp rechts — */
+.dienst-lead { display: grid; gap: var(--sp-6); align-items: start; }
+@media (min-width: 900px) {
+  .dienst-lead { grid-template-columns: 1.15fr 0.85fr; gap: var(--sp-7); }
+}
+.dienst-lead__txt > * + * { margin-top: var(--sp-4); }
+.dienst-lead__txt h2 { font-size: clamp(1.6rem, 1.3rem + 1.1vw, 2.15rem); margin-bottom: var(--sp-2); }
+.dienst-lead__txt p { color: var(--text-muted); line-height: 1.75; }
+.dienst-lead__txt .check-list { margin-top: var(--sp-5); }
+
+/* Kaartje met de rechtstreekse nummers naast de inleiding. */
+.dienst-call {
+  margin-top: var(--sp-4);
+  padding: 1.3rem 1.25rem;
+  background: var(--inverse-bg);
+  color: var(--inverse-text);
+  border-radius: var(--radius-md);
+}
+.dienst-call h2 {
+  font-size: 1.05rem;
+  color: var(--inverse-text-emphasis);
+  margin-bottom: 0.35rem;
+}
+.dienst-call p { font-size: 0.9rem; color: var(--inverse-text-muted); line-height: 1.55; }
+.dienst-call__list { display: grid; gap: 0.55rem; margin-top: var(--sp-4); }
+.dienst-call__list a {
+  display: flex; align-items: center; gap: 0.7rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--inverse-hairline); border-radius: var(--radius-sm);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.dienst-call__list a:hover { background: var(--inverse-hover); border-color: var(--accent-veil-strong); }
+.dienst-call__list svg { width: 16px; height: 16px; flex: none; color: var(--accent-inverse); }
+.dienst-call__list b { display: block; font-size: 0.95rem; font-weight: 600; color: var(--inverse-text-emphasis); }
+.dienst-call__list small { display: block; font-size: 0.78rem; color: var(--inverse-text-muted); }
+
+/* — Secties met een eigen kop binnen de pagina — */
+.dienst-head { max-width: 40rem; margin-bottom: var(--sp-6); }
+.dienst-head h2 { margin-bottom: 0.6rem; }
+.dienst-head p { color: var(--text-muted); line-height: 1.7; }
+
+/* — Schaal van lichtste naar zwaarste ingreep —
+   Laat een bezoeker zichzelf plaatsen: hoe zwaar is mijn geval ongeveer,
+   en wat betekent dat voor mijn huis? De legende bovenaan geeft de
+   richting aan, de meter per trede de zwaarte. — */
+.scale-key {
+  display: flex; align-items: center; gap: 0.85rem; flex-wrap: wrap;
+  margin-bottom: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
+}
+.scale-key__bar {
+  flex: 1 1 120px; min-width: 90px; height: 6px; border-radius: 3px;
+  background: linear-gradient(90deg, var(--stone-400), var(--accent) 60%, var(--accent-ink));
+}
+.scale-key span {
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--muted-accent); white-space: nowrap;
+}
+
+.ladder { position: relative; display: grid; gap: 0.8rem; padding-left: 3.6rem; }
+.ladder::before {
+  content: ""; position: absolute; left: 21.5px; top: 20px; bottom: 20px; width: 3px; border-radius: 2px;
+  background: linear-gradient(180deg, var(--stone-400), var(--accent) 58%, var(--accent-ink));
+  opacity: 0.6;
+}
+.rung {
+  position: relative; background: var(--surface-raised); border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md); padding: 1.3rem 1.4rem;
+  transition: border-color 0.22s ease, transform 0.18s ease, box-shadow 0.22s ease;
+}
+.rung:hover {
+  border-color: var(--accent-veil-strong); transform: translateX(3px);
+  box-shadow: 0 18px 34px -26px rgba(21, 18, 14, 0.5);
+}
+.rung__n {
+  position: absolute; left: -3.6rem; top: 1.15rem;
+  width: 44px; height: 44px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--bg); border: 1.5px solid var(--border);
+  font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; color: var(--ink-800);
+  transition: background 0.22s ease, color 0.22s ease, border-color 0.22s ease;
+}
+.rung:hover .rung__n { background: var(--accent); border-color: var(--accent); color: #fff; }
+.rung__top {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 0.5rem 1.25rem; margin-bottom: 0.5rem;
+}
+.rung h3 { font-size: 1.12rem; }
+.rung p { font-size: 0.94rem; color: var(--text-muted); }
+.meter { display: flex; align-items: center; gap: 0.28rem; flex: none; }
+.meter i { display: block; width: 17px; height: 6px; border-radius: 3px; background: var(--surface-subtle); }
+.meter i.on { background: var(--accent); }
+.meter b {
+  margin-left: 0.5rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em;
+  text-transform: uppercase; color: var(--muted-accent);
+}
+.rung__meta { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.95rem; }
+.rung__meta span {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  border: 1px solid var(--border); border-radius: 100px; background: var(--bg);
+  padding: 0.34rem 0.8rem; font-size: 0.8rem; color: var(--ink-800);
+}
+.rung__meta svg { width: 14px; height: 14px; flex: none; color: var(--accent-ink); }
+
+/* De zwaarste ingreep krijgt ook visueel het meeste gewicht. */
+.rung--top {
+  background: linear-gradient(150deg, var(--ink-800) 0%, var(--ink-900) 100%);
+  border-color: transparent; color: var(--inverse-text-soft);
+  box-shadow: 0 24px 44px -28px rgba(21, 18, 14, 0.7);
+}
+.rung--top:hover { border-color: var(--accent-veil-strong); }
+.rung--top h3 { color: var(--inverse-text-emphasis); }
+.rung--top p { color: var(--inverse-text-soft); }
+.rung--top .rung__n { background: var(--ink-900); border-color: var(--accent-veil-strong); color: var(--accent-inverse); }
+.rung--top:hover .rung__n { background: var(--accent); border-color: var(--accent); color: #fff; }
+.rung--top .meter i { background: rgba(255, 255, 255, 0.15); }
+.rung--top .meter i.on { background: var(--accent-inverse); }
+.rung--top .meter b { color: var(--muted-accent); }
+.rung--top .rung__meta span {
+  border-color: var(--inverse-hairline); background: rgba(255, 255, 255, 0.05); color: var(--inverse-text-soft);
+}
+.rung--top .rung__meta svg { color: var(--accent-inverse); }
+
+/* Afsluiter onder de schaal, voor wie zich niet kan plaatsen. */
+.ladder-note {
+  margin-top: clamp(1.75rem, 1.4rem + 1.4vw, 2.5rem);
+  display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem;
+  padding: 1.35rem 1.5rem; border-radius: var(--radius-md);
+  background: var(--surface-raised); border: 1px solid var(--border);
+}
+.ladder-note p { font-size: 0.95rem; flex: 1 1 22rem; color: var(--text-muted); }
+.ladder-note strong { color: var(--text-strong); font-weight: 600; }
+
+@media (max-width: 560px) {
+  .scale-key { display: grid; grid-template-columns: auto 1fr auto; gap: 0.55rem; flex-wrap: nowrap; }
+  .scale-key span { font-size: 0.69rem; letter-spacing: 0.04em; }
+}
+@media (max-width: 480px) {
+  .ladder { padding-left: 3.1rem; }
+  .ladder::before { left: 18.5px; }
+  .rung { padding: 1.1rem 1.15rem; }
+  .rung__n { left: -3.1rem; top: 1rem; width: 38px; height: 38px; font-size: 0.98rem; }
+  .rung__top { gap: 0.45rem; }
+  .meter i { width: 15px; }
+  .ladder-note { padding: 1.15rem 1.15rem; }
+}
+
+
+/* — Andere diensten onderaan — */
+.dienst-more { margin-top: var(--sp-6); }
+
+/* — Motion policy — */
+@media (prefers-reduced-motion: reduce) {
+  .dienst-call__list a, .rung, .rung__n { transition: none; }
+  .rung:hover { transform: none; }
+}

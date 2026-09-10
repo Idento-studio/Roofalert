@@ -75,6 +75,8 @@
   font-size: var(--fs-h2);
   max-width: 22ch;
 }
+/* Zelfde nadruk als in de hero op de homepage. */
+.page-header h1 em { font-style: italic; font-weight: 500; color: var(--accent-inverse); }
 .page-header p {
   margin-top: var(--sp-4);
   max-width: 58ch;
@@ -82,6 +84,45 @@
   font-size: var(--fs-lead);
   line-height: 1.55;
 }
+
+/* — Pagina-kop met beeld — variant voor de dienstpagina's: tekst links, één
+   foto rechts. Bewust enkel een foto, geen badge of overlay: dat hoort bij
+   de hero op de homepage. — */
+.page-header__grid { display: grid; gap: var(--sp-6); align-items: center; }
+@media (min-width: 940px) {
+  .page-header__grid { grid-template-columns: 1.08fr 0.92fr; gap: var(--sp-7); }
+}
+.page-header__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(160deg, var(--ink-800) 0%, #2e251b 58%, #5c2c10 130%);
+  box-shadow: 0 32px 64px -28px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(232, 225, 214, 0.1);
+  /* aspect-ratio + enkel absolute inhoud: zonder dit rekent het grid-item
+     zichzelf naar 0×0 uit (zie ook .hero__art). */
+  justify-self: stretch;
+}
+@media (min-width: 940px) {
+  .page-header__media { aspect-ratio: 1 / 1; max-width: 460px; margin-left: auto; }
+}
+/* Merkpatroon zolang er geen foto staat, zodat een ontbrekend beeld geen
+   zwart gat achterlaat. */
+.page-header__media::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(90% 70% at 80% 15%, rgba(224, 99, 28, 0.35), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='48' viewBox='0 0 96 48'%3E%3Cg fill='none' stroke='%23E8E1D6' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M-48 24q24-26 48 0 24-26 48 0 24-26 48 0'/%3E%3Cpath d='M-24 48q24-26 48 0 24-26 48 0 24-26 48 0'/%3E%3Cpath d='M-24 0q24-26 48 0 24-26 48 0 24-26 48 0'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: cover, 96px 48px;
+  opacity: 0.28;
+}
+.page-header__media img {
+  position: absolute; inset: 0; z-index: 1;
+  width: 100%; height: 100%; object-fit: cover;
+}
+
 
 /* — Breadcrumb — */
 .breadcrumb {
@@ -216,7 +257,18 @@ body.nav-locked { overflow: hidden; }
 .mega__lbl {
   grid-column: 1 / -1; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em;
   text-transform: uppercase; color: var(--muted-accent); margin: 0 0 0.5rem 1.15rem;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4);
 }
+/* Link naar het volledige overzicht, in de labelregel zodat het raster
+   met de zes diensten intact blijft. */
+.mega__all {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  font-size: 0.84rem; font-weight: 600; letter-spacing: 0; text-transform: none;
+  color: var(--accent-ink); white-space: nowrap;
+}
+.mega__all svg { width: 14px; height: 14px; transition: transform 0.2s ease; }
+.mega__all:hover svg { transform: translateX(3px); }
+@media (max-width: 919px) { .mega__all { margin-right: 0.25rem; } }
 .mega__link { display: flex; gap: 0.95rem; align-items: center; padding: 1rem 1.15rem; border-radius: 14px; transition: background 0.2s ease; }
 .mega__link:hover { background: var(--surface-subtle); }
 .mega__ic {
