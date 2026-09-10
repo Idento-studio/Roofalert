@@ -1,8 +1,8 @@
 /* ==========================================================================
    site.js — progressive enhancement voor de hele site.
    Alles is optioneel: zonder JS blijft de pagina volledig leesbaar.
-   Home-specifieke hooks (sticky bar, nudge, hero-parallax) doen niets
-   op pagina's waar die elementen niet bestaan.
+   Elk blok controleert zelf of zijn element bestaat, dus dit bestand kan
+   ongewijzigd op elke pagina geladen worden.
    ========================================================================== */
 (function () {
   document.documentElement.classList.add('js');
@@ -21,6 +21,53 @@
     }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
     els.forEach(function (el) { io.observe(el); });
   }
+
+  // Header: waas-achtergrond zodra er voorbij de hero gescrold wordt.
+  var hdr = document.getElementById('hdr');
+  if (hdr) {
+    var onHdrScroll = function () { hdr.classList.toggle('is-stuck', window.scrollY > 40); };
+    onHdrScroll();
+    window.addEventListener('scroll', onHdrScroll, { passive: true });
+  }
+
+  // Megamenu (Diensten): open op hover/click, sluit op Escape of klik buiten.
+  var megaItem = document.getElementById('megaItem');
+  if (megaItem) {
+    var trig = megaItem.querySelector('.nav__trigger');
+    var closeTimer;
+    var setMegaOpen = function (on) {
+      megaItem.classList.toggle('is-open', on);
+      trig.setAttribute('aria-expanded', on ? 'true' : 'false');
+    };
+    megaItem.addEventListener('mouseenter', function () { clearTimeout(closeTimer); setMegaOpen(true); });
+    megaItem.addEventListener('mouseleave', function () { closeTimer = setTimeout(function () { setMegaOpen(false); }, 140); });
+    trig.addEventListener('click', function (e) { e.preventDefault(); setMegaOpen(!megaItem.classList.contains('is-open')); });
+    megaItem.querySelectorAll('.mega a').forEach(function (a) {
+      a.addEventListener('click', function () { setMegaOpen(false); });
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { setMegaOpen(false); trig.blur(); } });
+    document.addEventListener('click', function (e) { if (!megaItem.contains(e.target)) { setMegaOpen(false); } });
+  }
+
+  // Accordion (diensten): één item tegelijk open.
+  document.querySelectorAll('.acc-item').forEach(function (item) {
+    var btn = item.querySelector('.acc-btn');
+    btn.addEventListener('click', function () {
+      var open = item.dataset.open === 'true';
+      item.closest('.acc').querySelectorAll('.acc-item').forEach(function (o) {
+        o.dataset.open = 'false';
+        o.querySelector('.acc-btn').setAttribute('aria-expanded', 'false');
+      });
+      if (!open) {
+        item.dataset.open = 'true';
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  // Footer-jaartal.
+  var jaarEl = document.getElementById('jaar');
+  if (jaarEl) jaarEl.textContent = new Date().getFullYear();
 
   // Count-up numbers (stat row), once each, while visible
   var counters = document.querySelectorAll('[data-count-to]');
@@ -46,60 +93,5 @@
       });
     }, { threshold: 0.4 });
     counters.forEach(function (el) { countIo.observe(el); });
-  }
-
-  // Thin scroll progress bar
-  var progressFill = document.getElementById('progressFill');
-  var heroEl = document.getElementById('hero');
-  var heroPhoto = document.getElementById('heroPhoto');
-  var heroImg = heroPhoto ? heroPhoto.querySelector('img') : null;
-  var stickyBar = document.getElementById('stickyBar');
-  // Referentiepunt voor de nudge: die schuift binnen zodra de bezoeker
-    // voorbij deze sectie is. Hernoem je #diensten in de HTML, pas dit
-    // dan mee aan.
-    var nudgeAnchorEl = document.getElementById('diensten');
-  var nudgeEl = document.getElementById('nudge');
-  var nudgeShown = false;
-  var nudgeDismissed = false;
-  var ticking = false;
-
-  function onScroll() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(function () {
-      var doc = document.documentElement;
-      var scrollTop = window.scrollY || doc.scrollTop;
-      var scrollable = (doc.scrollHeight - doc.clientHeight) || 1;
-      if (progressFill) progressFill.style.transform = 'scaleX(' + Math.min(scrollTop / scrollable, 1) + ')';
-
-      if (heroEl) {
-        var heroBottom = heroEl.offsetTop + heroEl.offsetHeight;
-        if (stickyBar) stickyBar.classList.toggle('is-visible', scrollTop > heroBottom - 120);
-
-        if (!reducedMotion && heroImg && scrollTop < heroBottom) {
-          var shift = Math.min(scrollTop * 0.08, 28);
-          heroImg.style.transform = 'translateY(' + shift + 'px)';
-        }
-      }
-
-      if (nudgeAnchorEl && !nudgeShown && !nudgeDismissed) {
-        var nudgeAnchorBottom = nudgeAnchorEl.offsetTop + nudgeAnchorEl.offsetHeight;
-        if (scrollTop > nudgeAnchorBottom) {
-          nudgeShown = true;
-          if (nudgeEl) nudgeEl.classList.add('is-visible');
-        }
-      }
-      ticking = false;
-    });
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  var nudgeClose = document.getElementById('nudgeClose');
-  if (nudgeClose && nudgeEl) {
-    nudgeClose.addEventListener('click', function () {
-      nudgeDismissed = true;
-      nudgeEl.classList.remove('is-visible');
-    });
   }
 })();

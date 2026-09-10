@@ -1,67 +1,54 @@
 /* ==========================================================================
    components.css — herbruikbare UI-onderdelen. Bruikbaar op elke pagina:
-   eyebrow, buttons, quote-cards, formulier + infokaart, openingsuren, FAQ.
+   eyebrow, buttons, accordion, team/partner-kaarten, storm-CTA, testimonials,
+   formulier + infokaart, openingsuren, FAQ, cookiebanner.
    ========================================================================== */
 
 /* — Eyebrow — */
 .eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: var(--sp-2);
-  font-family: var(--font-body);
+  gap: 0.5rem;
+  margin-bottom: 1.15rem;
+  padding: 0.42rem 0.9rem 0.42rem 0.55rem;
+  border-radius: 100px;
+  background: var(--accent-veil);
+  color: var(--accent-ink);
   font-size: var(--fs-eyebrow);
   font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent-ink);
+  line-height: 1.3;
 }
-.eyebrow::before {
-  content: "";
-  width: 22px;
-  height: 2px;
-  background: var(--accent);
-  display: inline-block;
-}
+.eyebrow svg { width: 15px; height: 15px; flex: none; }
 
 /* — Buttons — */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--sp-2);
+  gap: 0.55rem;
+  min-height: 52px;
+  padding: 0.9rem 1.6rem;
+  border-radius: 100px;
   font-family: var(--font-body);
+  font-size: 0.97rem;
   font-weight: 600;
-  font-size: 0.9375rem;
-  letter-spacing: 0.01em;
-  padding: 0.85rem 1.6rem;
-  border-radius: 999px;
-  border: 1px solid transparent;
+  letter-spacing: 0.005em;
+  border: 1.5px solid transparent;
   cursor: pointer;
-  text-decoration: none;
-  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), background 0.25s ease;
-  will-change: transform;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.12s ease;
 }
-.btn-primary {
-  background: var(--accent);
-  color: var(--text-strong);
-  box-shadow: 0 14px 30px -12px var(--accent-shadow);
-}
-.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 38px -14px var(--accent-shadow-strong); }
-.btn-ghost {
-  background: transparent;
-  border-color: var(--inverse-border-soft);
-  color: var(--inverse-text);
-}
-.btn-ghost:hover { transform: translateY(-3px); background: var(--inverse-hover); }
-.btn-outline {
-  background: transparent;
-  border-color: var(--border);
-  color: var(--text);
-}
+.btn:active { transform: scale(0.975); }
+.btn-primary { background: var(--accent); color: #fff; position: relative; overflow: hidden; }
+.btn-primary:hover { background: var(--accent-ink); }
+.btn-ghost { border-color: var(--border); color: var(--text-strong); background: transparent; }
+.btn-ghost:hover { border-color: var(--text-strong); background: rgba(21, 18, 14, 0.04); }
+.btn-outline { background: transparent; border-color: var(--border); color: var(--text); }
 .btn-outline:hover { transform: translateY(-3px); border-color: var(--accent-ink); background: var(--surface); }
+.btn-light { border-color: rgba(251, 248, 243, 0.35); color: var(--bg); }
+.btn-light:hover { background: var(--bg); color: var(--text-strong); border-color: var(--bg); }
+.btn-full { width: 100%; }
 
-
-/* — Nav CTA: calm pulse + shine sweep on primary buttons — */
+/* — Nav CTA: calm pulse + shine sweep op primaire knoppen — */
 .nav-pulse-btn { position: relative; }
 .nav-pulse-btn::before {
   content: "";
@@ -78,7 +65,6 @@
   0%, 100% { opacity: 0.32; transform: scale(0.88); }
   50% { opacity: 0.75; transform: scale(1.14); }
 }
-.btn-primary { position: relative; overflow: hidden; }
 .btn-primary::after {
   content: "";
   position: absolute;
@@ -94,6 +80,97 @@
   opacity: 1;
 }
 
+
+/* — Accordion (diensten) — */
+.acc { display: grid; gap: 0.6rem; }
+.acc-item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  overflow: hidden;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+.acc-item[data-open="true"] { border-color: var(--accent-veil-strong); background: var(--surface-raised); }
+.acc-btn { display: flex; align-items: center; gap: 1rem; width: 100%; text-align: left; padding: 1.05rem 1.15rem; min-height: 64px; }
+.acc-ic {
+  width: 44px; height: 44px; flex: none; border-radius: 11px; background: var(--surface-subtle);
+  display: grid; place-items: center; color: var(--accent-ink); transition: background 0.25s ease, color 0.25s ease;
+}
+.acc-item[data-open="true"] .acc-ic { background: var(--accent); color: #fff; }
+.acc-ic svg { width: 22px; height: 22px; }
+.acc-ttl { flex: 1; min-width: 0; font-family: var(--font-display); font-weight: 600; font-size: 1.08rem; color: var(--text-strong); line-height: 1.2; }
+.acc-chev { width: 20px; height: 20px; flex: none; color: var(--ink-800); transition: transform 0.3s ease; }
+.acc-item[data-open="true"] .acc-chev { transform: rotate(180deg); color: var(--accent-ink); }
+.acc-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.34s cubic-bezier(0.3, 0.9, 0.3, 1); }
+.acc-item[data-open="true"] .acc-body { grid-template-rows: 1fr; }
+.acc-inner { overflow: hidden; }
+.acc-pad { padding: 0 1.15rem 1.25rem 1.15rem; }
+@media (min-width: 600px) { .acc-pad { padding-left: calc(1.15rem + 44px + 1rem); } }
+.acc-pad p { font-size: var(--fs-small); margin-bottom: 0.9rem; color: var(--text-muted); }
+.acc-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.92rem; font-weight: 600; color: var(--accent-ink); }
+.acc-link svg { width: 16px; height: 16px; transition: transform 0.2s ease; }
+.acc-link:hover svg { transform: translateX(3px); }
+
+
+/* — Team- en partnerkaarten — */
+.team-grid { display: grid; gap: var(--sp-4); }
+@media (min-width: 720px) { .team-grid { grid-template-columns: 1fr 1fr; gap: var(--sp-5); } }
+.card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-md); padding: 1.5rem 1.4rem; }
+.card__top { display: flex; align-items: center; gap: 0.95rem; margin-bottom: var(--sp-4); }
+.avatar {
+  width: 54px; height: 54px; flex: none; border-radius: 50%; background: var(--ink-900); color: var(--accent);
+  display: grid; place-items: center; font-family: var(--font-display); font-weight: 600; font-size: 1.25rem;
+}
+.card__name { font-family: var(--font-display); font-weight: 600; font-size: 1.2rem; color: var(--text-strong); line-height: 1.2; }
+.card__role { font-size: var(--fs-small); font-weight: 600; color: var(--accent-ink); }
+.card p { font-size: 0.94rem; color: var(--text-muted); }
+
+.partners { margin-top: var(--sp-8); border-top: 1px solid var(--border); padding-top: var(--sp-6); }
+.partners__lbl { font-size: 0.83rem; font-weight: 600; color: var(--text); opacity: 0.7; margin-bottom: var(--sp-4); }
+.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chip { border: 1px solid var(--border); background: var(--surface); border-radius: 100px; padding: 0.5rem 1rem; font-size: 0.86rem; font-weight: 500; color: var(--ink-800); }
+
+
+/* — Storm-CTA-kaart — */
+.storm { padding-block: var(--sp-8); }
+.storm-card {
+  position: relative; overflow: hidden; border-radius: var(--radius-lg);
+  padding: clamp(1.75rem, 1rem + 3vw, 3.25rem);
+  background: linear-gradient(150deg, #e97a2e 0%, var(--accent) 42%, var(--accent-ink) 100%);
+  color: #fff;
+  box-shadow: 0 24px 48px -22px rgba(168, 65, 15, 0.55), 0 2px 0 rgba(255, 255, 255, 0.16) inset;
+}
+.storm-card::before {
+  content: ""; position: absolute; top: -30%; right: -18%; width: min(360px, 72%); aspect-ratio: 1;
+  border-radius: 50%; background: radial-gradient(circle, rgba(255, 255, 255, 0.28), transparent 68%);
+  pointer-events: none;
+}
+.storm-bolt { position: absolute; right: -14px; bottom: -24px; width: clamp(130px, 34vw, 220px); opacity: 0.16; pointer-events: none; color: var(--ink-900); }
+.storm-in { position: relative; z-index: 2; display: grid; gap: 1.6rem; }
+@media (min-width: 860px) { .storm-in { grid-template-columns: 1fr auto; align-items: center; gap: var(--sp-7); } }
+.storm-pill {
+  display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 0.9rem;
+  padding: 0.4rem 0.85rem; border-radius: 100px;
+  background: rgba(255, 255, 255, 0.18); border: 1px solid rgba(255, 255, 255, 0.32);
+  font-size: 0.8rem; font-weight: 600;
+}
+.storm-pill span { display: block; width: 8px; height: 8px; border-radius: 50%; background: #fff; }
+.storm h2 { color: #fff; margin-bottom: 0.6rem; font-size: clamp(1.6rem, 1.2rem + 1.7vw, 2.5rem); }
+.storm p { color: rgba(255, 255, 255, 0.92); font-size: 1rem; max-width: 38ch; }
+.storm-acts { display: grid; gap: 0.65rem; }
+@media (min-width: 520px) and (max-width: 859px) { .storm-acts { grid-template-columns: 1fr 1fr; } }
+.storm-btn {
+  display: flex; align-items: center; gap: 0.85rem; min-height: 60px;
+  padding: 0.8rem 1.2rem; border-radius: 14px;
+  background: rgba(255, 255, 255, 0.97); color: var(--text-strong);
+  transition: transform 0.14s ease, background 0.2s ease;
+}
+.storm-btn:hover { background: #fff; }
+.storm-btn:active { transform: scale(0.98); }
+.storm-btn svg { width: 20px; height: 20px; flex: none; color: var(--accent-ink); }
+.storm-btn span { min-width: 0; }
+.storm-btn b { display: block; font-size: 1rem; font-weight: 600; line-height: 1.2; letter-spacing: -0.01em; }
+.storm-btn small { display: block; font-size: 0.79rem; color: var(--text-muted); line-height: 1.3; }
 
 
 /* — Testimonials — */
@@ -201,7 +278,6 @@
   color: var(--inverse-text-dim);
   margin: 0 0 0.3rem;
 }
-.info-row a { text-decoration: none; }
 .info-row a:hover { color: var(--accent-inverse); }
 .hours-table { width: 100%; border-collapse: collapse; font-size: var(--fs-small); }
 .hours-table th {
@@ -294,7 +370,6 @@
 .field-trap {
   position: absolute;
   width: 1px; height: 1px;
-  padding: 0; margin: -1px;
   overflow: hidden;
   clip: rect(0 0 0 0);
   white-space: nowrap;
@@ -337,15 +412,16 @@
 .cookie-actions .btn {
   padding: 0.6rem 1.2rem;
   font-size: 0.875rem;
+  min-height: auto;
 }
 @media (max-width: 560px) {
-  .cookie-banner { left: var(--sp-4); right: var(--sp-4); bottom: var(--sp-4); }
+  .cookie-banner { left: var(--sp-4); right: var(--sp-4); bottom: calc(var(--sp-4) + 70px); }
 }
 
 
 /* — Motion policy: componenten — */
 @media (prefers-reduced-motion: reduce) {
   .nav-pulse-btn::before { animation: none !important; }
-  .btn, .quote-card, .faq-item summary .faq-chevron { transition: none; }
+  .btn, .quote-card, .faq-item summary .faq-chevron, .acc-body, .acc-ic, .acc-chev { transition: none; }
   .cookie-banner { transition: none; }
 }

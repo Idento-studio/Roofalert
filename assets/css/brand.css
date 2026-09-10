@@ -3,121 +3,97 @@
    Enige plek waar kleuren, fonts, spacing en radii gedefinieerd worden.
    Wijzig hier en de hele site volgt. Bevat GEEN component- of paginastijlen.
 
-   ── PER KLANT AAN TE PASSEN ──────────────────────────────────────────────
-   Het kleurenpalet hieronder wordt per klant aangepast op basis van
-   sectie 6 van PROJECT-BRIEF.md (huisstijl: kleuren, logo, fonts, tone of
-   voice). De tokens die er nu staan zijn een NEUTRAAL STARTPUNT — een
-   warm, aards palet dat op zichzelf voor niemand specifiek is. Laat ze
-   staan tot je de huisstijl van de klant hebt.
-
-   Werkwijze:
-   1. Vervang de hex-waarden in "Palette" door die van de klant. Houd de
-      tokennamen (--moss-800, --gold-500...) ongewijzigd, of hernoem ze
-      overal consequent — ze worden door de andere CSS-bestanden gebruikt.
-   2. De semantische tokens eronder (--bg, --text, --accent, --brand...)
-      wijzen naar het palet. Meestal hoef je daar niets te veranderen:
-      pas het palet aan en de hele site volgt.
-   3. Fonts: --font-display en --font-body. Wijzig je die, pas dan ook de
-      Google Fonts-link in de head van elke HTML-pagina aan.
-   4. Controleer het contrast na het wisselen (minimaal 4.5:1 voor
-      lopende tekst) — een donker merkkleur op een lichte achtergrond
-      gaat meestal goed, de omgekeerde combinatie zelden.
+   ── PER KLANT AANGEPAST ──────────────────────────────────────────────────
+   Palette en fonts hieronder komen 1-op-1 uit het door de klant goedgekeurde
+   homepage-ontwerp (roofalert-designvoorstel.html): warm, aards palet met
+   een oranje accent, Fraunces voor koppen en Inter voor lopende tekst.
    ========================================================================== */
 
 :root {
   color-scheme: light;
 
-  /* — Palette — */
-  --moss-950: #1c2419;
-  --moss-900: #242f1f;
-  --moss-800: #33422e;
-  --moss-700: #445642;
-  --gold-600: #a8721f;
-  --gold-500: #c98a34;
-  --gold-400: #dba456;
-  --wine-700: #5f2424;
-  --wine-600: #7a2e2e;
-  --linen-50:  #faf8f2;
-  --linen-100: #f3efe3;
-  --linen-200: #eae3d3;
-  --linen-300: #ded4bd;
-  --sage-400: #a9af9a;
-  --sage-300: #c2c7b3;
-  --ink-900: #1a1712;
-  --ink-800: #221f1a;
-  --ink-600: #4a453c;
-  --ink-400: #79746a;
+  /* — Palette (uit het goedgekeurde ontwerp) — */
+  --ink-900: #15120e;
+  --ink-800: #2a241c;
+  --paper-50: #fbf8f3;
+  --paper-100: #f2ece1;
+  --orange-600: #a8410f;
+  --orange-500: #e0631c;
+  --orange-400: #f5a662;
+  --orange-tint: #faeadf;
+  --stone-400: #b9ac93;
+  --body-700: #4a4238;
 
-  --bg: var(--linen-100);
-  --surface: var(--linen-50);
-  --surface-subtle: var(--linen-200);
+  --bg: var(--paper-50);
+  --surface: var(--paper-50);
+  --surface-subtle: var(--paper-100);
   --surface-raised: #ffffff;
-  --text: var(--ink-800);
-  --text-muted: var(--ink-600);
-  --border: var(--linen-300);
-  --accent: var(--gold-500);
-  /* Iets dieper dan --gold-600: op de lichte achtergronden (linen/wit) waar
-     dit voor kleine tekst en links gebruikt wordt, haalt --gold-600 zelf maar
-     3.6:1 contrast — net onder de WCAG AA-norm (4.5:1) voor gewone tekst.
-     Deze tint haalt overal ≥4.5:1, zonder merkbaar minder "goud" te ogen. */
-  --accent-ink: #8f611a;
-  --brand: var(--moss-800);
+  --text: var(--body-700);
+  --text-muted: var(--body-700);
+  --border: rgba(21, 18, 14, 0.12);
+  --border-soft: rgba(21, 18, 14, 0.07);
+  --accent: var(--orange-500);
+  --accent-ink: var(--orange-600);
+  --brand: var(--ink-900);
 
-  /* — Rollen op een donkere ondergrond (header/footer/page-header/info-card) —
+  /* — Rollen op een donkere ondergrond (header/footer/hero/page-header) —
      Hieronder verandert normaal NIETS per klant: je past enkel het palet
      hierboven aan, en deze rollen volgen automatisch mee. — */
-  --inverse-bg: var(--moss-900);
-  --inverse-bg-strong: var(--moss-950);
-  --inverse-text: var(--linen-50);
-  --inverse-text-emphasis: var(--linen-100);
-  --inverse-text-muted: var(--sage-300);
-  --inverse-text-soft: var(--sage-400);
-  --inverse-text-dim: rgba(250, 248, 242, 0.6);
-  --inverse-text-bright: rgba(250, 248, 242, 0.82);
-  --accent-inverse: var(--gold-400);
+  --inverse-bg: var(--ink-900);
+  --inverse-bg-strong: #0e0c09;
+  --inverse-text: #efe8dc;
+  --inverse-text-emphasis: #fffbf5;
+  --inverse-text-muted: var(--stone-400);
+  --inverse-text-soft: #cfc5b6;
+  --inverse-text-dim: rgba(239, 232, 220, 0.6);
+  --inverse-text-bright: rgba(239, 232, 220, 0.85);
+  --accent-inverse: var(--orange-400);
 
   /* — Extra tekst-/decoratierol op een lichte ondergrond — */
   --text-strong: var(--ink-900);
-  --muted-accent: var(--sage-400);
+  --muted-accent: var(--stone-400);
 
-  /* — Status (formulier- en meldingsfeedback) — */
-  --success: var(--moss-700);
-  --success-strong: var(--moss-900);
-  --success-veil: rgba(51, 66, 46, 0.08);
-  --danger: var(--wine-600);
-  --danger-strong: var(--wine-700);
-  --danger-veil: rgba(122, 46, 46, 0.07);
-  --danger-veil-soft: rgba(122, 46, 46, 0.05);
-  --danger-ring: rgba(122, 46, 46, 0.35);
+  /* — Status (formulier- en meldingsfeedback) — het ontwerp definieert geen
+     eigen status-kleuren, dus deze blijven neutrale, toegankelijke tinten
+     die wel bij het warme palet passen. — */
+  --success: #4a5d3a;
+  --success-strong: #33422e;
+  --success-veil: rgba(74, 93, 58, 0.09);
+  --danger: #8c3a2e;
+  --danger-strong: #6e2c22;
+  --danger-veil: rgba(140, 58, 46, 0.08);
+  --danger-veil-soft: rgba(140, 58, 46, 0.05);
+  --danger-ring: rgba(140, 58, 46, 0.35);
 
   /* — Doorschijnende laagjes op de --inverse-bg (nav-blur, randjes, hover) — */
-  --inverse-veil-nav: rgba(250, 248, 242, 0.78);
-  --inverse-border-soft: rgba(250, 248, 242, 0.4);
-  --inverse-underline: rgba(250, 248, 242, 0.35);
-  --inverse-hover: rgba(250, 248, 242, 0.1);
-  --inverse-hairline: rgba(250, 248, 242, 0.12);
-  --hairline: rgba(30, 27, 20, 0.08);
+  --inverse-veil-nav: rgba(251, 248, 243, 0.9);
+  --inverse-border-soft: rgba(239, 232, 220, 0.35);
+  --inverse-underline: rgba(251, 248, 243, 0.35);
+  --inverse-hover: rgba(251, 248, 243, 0.1);
+  --inverse-hairline: rgba(251, 248, 243, 0.12);
+  --hairline: rgba(21, 18, 14, 0.12);
+  --hairline-soft: rgba(21, 18, 14, 0.07);
 
   /* — Decoratieve gloed/schaduw rond de accentkleur (CTA-knop, hero) — */
-  --accent-veil: rgba(201, 138, 52, 0.28);
-  --accent-veil-strong: rgba(201, 138, 52, 0.5);
-  --accent-shadow: rgba(169, 114, 31, 0.55);
-  --accent-shadow-strong: rgba(169, 114, 31, 0.6);
-  --accent-ring: rgba(169, 114, 31, 0.35);
-  --brand-veil: rgba(68, 86, 66, 0.55);
+  --accent-veil: rgba(224, 99, 28, 0.16);
+  --accent-veil-strong: rgba(245, 166, 98, 0.42);
+  --accent-shadow: rgba(168, 65, 15, 0.4);
+  --accent-shadow-strong: rgba(168, 65, 15, 0.5);
+  --accent-ring: rgba(168, 65, 15, 0.35);
+  --brand-veil: rgba(21, 18, 14, 0.3);
   --sheen: rgba(255, 255, 255, 0.6);
 
   /* — Type scale — */
   --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
-  --font-body: "Work Sans", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", "Segoe UI", system-ui, sans-serif;
 
-  --fs-eyebrow: 0.8125rem;
+  --fs-eyebrow: 0.82rem;
   --fs-small: 0.9375rem;
-  --fs-body: 1.0625rem;
-  --fs-lead: 1.25rem;
-  --fs-h3: clamp(1.375rem, 1.1rem + 1.1vw, 1.75rem);
-  --fs-h2: clamp(2rem, 1.5rem + 2.2vw, 3rem);
-  --fs-h1: clamp(2.75rem, 1.9rem + 3.8vw, 4.75rem);
+  --fs-body: 1rem;
+  --fs-lead: 1.15rem;
+  --fs-h3: 1.15rem;
+  --fs-h2: clamp(1.85rem, 1.5rem + 1.6vw, 3rem);
+  --fs-h1: clamp(2.4rem, 1.5rem + 4.2vw, 4.4rem);
 
   /* — Spacing scale — */
   --sp-1: 0.25rem;
@@ -128,39 +104,48 @@
   --sp-6: 2rem;
   --sp-7: 3rem;
   --sp-8: 4.5rem;
-  --sp-9: 6.5rem;
+  --sp-9: clamp(3.5rem, 2.5rem + 4.5vw, 7rem);
   --sp-10: 9rem;
+  --wrap-pad: clamp(1.25rem, 1rem + 1.2vw, 2rem);
 
   --radius-sm: 10px;
-  --radius-md: 18px;
-  --radius-lg: 28px;
-  --shadow-soft: 0 20px 50px -25px rgba(26, 23, 18, 0.35);
-  --shadow-lift: 0 28px 60px -20px rgba(26, 23, 18, 0.4);
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --shadow-soft: 0 20px 50px -25px rgba(21, 18, 14, 0.35);
+  --shadow-lift: 0 28px 60px -20px rgba(21, 18, 14, 0.4);
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-*, *::before, *::after { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 body {
-  margin: 0;
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
   font-size: var(--fs-body);
-  line-height: 1.6;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
-img { max-width: 100%; display: block; }
-a { color: inherit; }
+h1, h2, h3, p, li, span, a { overflow-wrap: break-word; }
+img, svg { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 h1, h2, h3 {
   font-family: var(--font-display);
   color: var(--ink-900);
-  margin: 0;
-  text-wrap: balance;
   font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
 }
-p { margin: 0; }
-ul { margin: 0; padding: 0; list-style: none; }
+h1 { font-size: var(--fs-h1); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); line-height: 1.25; }
+p { max-width: 62ch; }
+ul { list-style: none; }
 section { scroll-margin-top: 5.5rem; }

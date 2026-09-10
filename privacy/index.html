@@ -20,7 +20,7 @@
   <meta name="description" content="Hoe [BEDRIJFSNAAM] omgaat met je gegevens: contactformulier, cookies en analytics.">
   <meta name="robots" content="noindex, follow">
   <link rel="canonical" href="https://[DOMEIN]/privacy/">
-  <meta name="theme-color" content="#33422e">
+  <meta name="theme-color" content="#15120e">
 
   <link rel="icon" href="../favicon.ico" sizes="any">
   <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
@@ -29,9 +29,9 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap">
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 
   <link rel="stylesheet" href="../assets/css/brand.css">
   <link rel="stylesheet" href="../assets/css/layout.css">
@@ -42,28 +42,20 @@
 
 <a class="skip-link" href="#main-content">Ga naar inhoud</a>
 
-<div class="progress-bar" aria-hidden="true"><div class="progress-bar-fill" id="progressFill"></div></div>
-
-<nav class="nav" aria-label="Hoofdnavigatie">
-  <div class="wrap nav-inner">
-    <a href="../" class="brand-mark">
-      <svg width="30" height="30" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-        <path d="M16 3C10 8 6 13.5 6 19a10 10 0 0 0 20 0c0-5.5-4-11-10-16Z" stroke="#33422e" stroke-width="1.6"/>
-        <path d="M16 9v18M16 14c-2.4-2-4.6-2-6.4-.6M16 19c2.8-2.2 5.4-2.2 7.6-.4" stroke="#c98a34" stroke-width="1.4" stroke-linecap="round"/>
-      </svg>
-      [BEDRIJFSNAAM]
+<header class="hdr" id="hdr">
+  <div class="wrap hdr__in">
+    <a href="../" class="brand" aria-label="RoofAlert home">
+      <img class="brand__logo" src="../assets/img/logo.png" alt="RoofAlert">
     </a>
-    <div class="nav-cta">
-      <div class="nav-links-list">
-        <a href="../#diensten">[NAV 1]</a>
-        <a href="../#ervaringen">[NAV 2]</a>
-        <a href="../#faq">Veelgestelde vragen</a>
-        <a href="../contact/">Contact</a>
-      </div>
-      <a href="../#contact-formulier" class="btn btn-primary nav-pulse-btn">[CTA-TEKST]</a>
-    </div>
+    <nav class="nav" aria-label="Hoofdmenu">
+      <a href="../#diensten">Diensten</a>
+      <a href="../#tulikivi">Tulikivi</a>
+      <a href="../#team">Over ons</a>
+      <a href="../contact/">Contact</a>
+    </nav>
+    <a href="../#contact" class="btn btn-primary hdr__cta">Offerte aanvragen</a>
   </div>
-</nav>
+</header>
 
 <header class="page-header">
   <div class="wrap">
@@ -117,13 +109,20 @@
   </section>
 </main>
 
-<footer>
-  <div class="wrap footer-inner">
-    <span><strong>[BEDRIJFSNAAM]</strong> — [ADRES]</span>
-    <span>[TELEFOON]</span>
-    <span class="footer-legal"><a href="./" aria-current="page">Privacybeleid</a> · <a href="#" data-cookie-settings>Cookie-instellingen</a></span>
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr__bot" style="margin-top:0; padding-top:0; border-top:none;">
+      <span>© <span id="jaar">2026</span> RoofAlert · BE0743.480.056</span>
+      <span><a href="./" aria-current="page">Privacybeleid</a> · <a href="#" data-cookie-settings>Cookie-instellingen</a></span>
+      <span>Webdesign by Idento</span>
+    </div>
   </div>
 </footer>
+
+<div class="bar">
+  <a href="tel:+32499892542" class="btn btn-ghost">Bel ons</a>
+  <a href="../#contact" class="btn btn-primary">Offerte</a>
+</div>
 
 <script src="../assets/js/cookie-consent.js" data-privacy-url="./" defer></script>
 <script src="../assets/js/analytics.js" defer></script>
