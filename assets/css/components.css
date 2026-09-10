@@ -393,6 +393,17 @@
   margin: 0 0 0.3rem;
 }
 .info-row a:hover { color: var(--accent-inverse); }
+
+/* Urgente variant: zelfde vak, maar oranje in plaats van donker, voor een
+   melding die boven de rest moet uitspringen (bv. "bel bij stormschade"
+   naast een offerteformulier). Zelfde verloop als .storm-card. */
+.info-card--urgent {
+  background: linear-gradient(150deg, #e97a2e 0%, var(--accent) 42%, var(--accent-ink) 100%);
+  color: #fff;
+}
+.info-card--urgent .info-row svg { color: #fff; }
+.info-card--urgent .info-row h4 { color: rgba(255, 255, 255, 0.8); }
+.info-card--urgent .info-row p { color: rgba(255, 255, 255, 0.92); }
 .hours-table { width: 100%; border-collapse: collapse; font-size: var(--fs-small); }
 .hours-table th {
   text-align: left;

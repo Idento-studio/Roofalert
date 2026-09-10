@@ -7,6 +7,7 @@
 
 .section-first { padding-top: var(--sp-8); }
 
-/* De info-card is hier bewust geen "praktische info"-kaartje maar leidt
-   eerst naar de telefoon bij spoed, vandaar de nadruk bovenaan. */
-.info-card .info-row:first-child h4 { color: var(--accent-inverse); }
+/* Twee losse kaarten naast het formulier: eerst de oranje spoedmelding,
+   daarna pas de gewone contactgegevens. Ze staan samen in één kolom van
+   .contact-grid, vandaar deze stack in plaats van los grid-item. */
+.info-card-stack { display: flex; flex-direction: column; gap: var(--sp-5); }
