@@ -30,24 +30,79 @@
     window.addEventListener('scroll', onHdrScroll, { passive: true });
   }
 
-  // Megamenu (Diensten): open op hover/click, sluit op Escape of klik buiten.
+  // Hoofdmenu. Boven 920px is dit een balk met een megamenu-overlay; daaronder
+  // klapt dezelfde markup open als paneel onder de hamburger, met het megamenu
+  // als inline submenu. Vandaar dat hover enkel op de desktopbreedte geldt.
+  var isDesktopNav = function () { return window.matchMedia('(min-width: 920px)').matches; };
+
+  var hdrEl = document.getElementById('hdr');
+  var burgerBtn = document.getElementById('burgerBtn');
   var megaItem = document.getElementById('megaItem');
-  if (megaItem) {
-    var trig = megaItem.querySelector('.nav__trigger');
-    var closeTimer;
-    var setMegaOpen = function (on) {
-      megaItem.classList.toggle('is-open', on);
-      trig.setAttribute('aria-expanded', on ? 'true' : 'false');
-    };
-    megaItem.addEventListener('mouseenter', function () { clearTimeout(closeTimer); setMegaOpen(true); });
-    megaItem.addEventListener('mouseleave', function () { closeTimer = setTimeout(function () { setMegaOpen(false); }, 140); });
-    trig.addEventListener('click', function (e) { e.preventDefault(); setMegaOpen(!megaItem.classList.contains('is-open')); });
-    megaItem.querySelectorAll('.mega a').forEach(function (a) {
-      a.addEventListener('click', function () { setMegaOpen(false); });
+  var megaTrigger = megaItem ? megaItem.querySelector('.nav__trigger') : null;
+
+  var setMegaOpen = function (on) {
+    if (!megaItem || !megaTrigger) return;
+    megaItem.classList.toggle('is-open', on);
+    megaTrigger.setAttribute('aria-expanded', on ? 'true' : 'false');
+  };
+
+  var setNavOpen = function (on) {
+    if (!hdrEl || !burgerBtn) return;
+    hdrEl.classList.toggle('is-nav-open', on);
+    burgerBtn.classList.toggle('is-open', on);
+    burgerBtn.setAttribute('aria-expanded', on ? 'true' : 'false');
+    burgerBtn.setAttribute('aria-label', on ? 'Menu sluiten' : 'Menu openen');
+    document.body.classList.toggle('nav-locked', on);
+    if (!on) setMegaOpen(false);
+  };
+
+  if (burgerBtn && hdrEl) {
+    burgerBtn.addEventListener('click', function () {
+      setNavOpen(!hdrEl.classList.contains('is-nav-open'));
     });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { setMegaOpen(false); trig.blur(); } });
-    document.addEventListener('click', function (e) { if (!megaItem.contains(e.target)) { setMegaOpen(false); } });
+    window.addEventListener('resize', function () {
+      if (isDesktopNav()) setNavOpen(false);
+    });
   }
+
+  if (megaItem && megaTrigger) {
+    var closeTimer;
+    megaItem.addEventListener('mouseenter', function () {
+      if (!isDesktopNav()) return;
+      clearTimeout(closeTimer);
+      setMegaOpen(true);
+    });
+    megaItem.addEventListener('mouseleave', function () {
+      if (!isDesktopNav()) return;
+      closeTimer = setTimeout(function () { setMegaOpen(false); }, 140);
+    });
+    megaTrigger.addEventListener('click', function (e) {
+      e.preventDefault();
+      setMegaOpen(!megaItem.classList.contains('is-open'));
+    });
+  }
+
+  // Een link in het menu sluit alles: op mobiel scrol je anders achter een
+  // opengeklapt paneel naar je sectie.
+  document.querySelectorAll('.nav a').forEach(function (a) {
+    a.addEventListener('click', function () { setMegaOpen(false); setNavOpen(false); });
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    if (hdrEl && hdrEl.classList.contains('is-nav-open')) {
+      setNavOpen(false);
+      if (burgerBtn) burgerBtn.focus();
+    } else if (megaItem && megaItem.classList.contains('is-open')) {
+      setMegaOpen(false);
+      if (megaTrigger) megaTrigger.blur();
+    }
+  });
+
+  document.addEventListener('click', function (e) {
+    if (megaItem && !megaItem.contains(e.target)) setMegaOpen(false);
+    if (hdrEl && !hdrEl.contains(e.target)) setNavOpen(false);
+  });
 
   // Accordion (diensten): één item tegelijk open.
   document.querySelectorAll('.acc-item').forEach(function (item) {

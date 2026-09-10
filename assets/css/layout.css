@@ -140,6 +140,60 @@
   .hdr .hdr__cta { display: inline-flex; min-height: 46px; padding: 0.7rem 1.35rem; font-size: 0.92rem; }
 }
 
+/* — Hamburger — onder 920px de enige ingang tot het hoofdmenu. — */
+.hdr__burger {
+  display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 5px; width: 44px; height: 44px; flex: none; border-radius: var(--radius-sm);
+  color: var(--inverse-text);
+}
+.hdr.is-stuck .hdr__burger,
+.hdr.is-nav-open .hdr__burger { color: var(--text-strong); }
+.hdr__burger span {
+  display: block; width: 20px; height: 2px; border-radius: 2px; background: currentColor;
+  transition: transform 0.28s var(--ease), opacity 0.2s ease;
+}
+.hdr__burger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hdr__burger.is-open span:nth-child(2) { opacity: 0; }
+.hdr__burger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+@media (min-width: 920px) { .hdr__burger { display: none; } }
+
+/* — Mobiel menu — dezelfde .nav als op desktop, maar uitgeklapt als paneel
+   onder de header. Zo is er één menu-markup voor beide breedtes; het
+   megamenu eronder wordt op mobiel een inline submenu (zie verder). — */
+@media (max-width: 919px) {
+  .hdr.is-nav-open {
+    background: var(--inverse-veil-nav);
+    backdrop-filter: saturate(1.4) blur(14px);
+    -webkit-backdrop-filter: saturate(1.4) blur(14px);
+    border-bottom-color: var(--hairline-soft);
+  }
+  .hdr.is-nav-open .brand__logo { filter: none; }
+  .hdr.is-nav-open .nav {
+    display: flex; flex-direction: column; align-items: stretch;
+    position: absolute; top: 100%; left: 0; right: 0; z-index: 59;
+    max-height: calc(100svh - 4.5rem);
+    overflow-y: auto; overscroll-behavior: contain;
+    /* Extra ruimte onderaan: de vaste actiebalk (76px) dekt anders de
+       laatste menuregel af zodra je onderaan het paneel scrolt. */
+    padding: 0.25rem var(--wrap-pad) calc(1.25rem + 76px);
+    background: var(--surface-raised);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 28px 56px -28px rgba(21, 18, 14, 0.45);
+    color: var(--text-strong);
+  }
+  .nav > a,
+  .nav__trigger {
+    display: flex; align-items: center; justify-content: space-between; width: 100%;
+    padding: 1rem 0.25rem; font-size: 1.05rem; font-weight: 600;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .nav > a:last-child { border-bottom: none; }
+  .nav__trigger svg { width: 18px; height: 18px; }
+}
+
+/* Vergrendelt de achtergrond terwijl het mobiele menu open staat. */
+body.nav-locked { overflow: hidden; }
+
 /* — Megamenu (Diensten) — */
 .nav__item { position: static; display: flex; align-items: center; }
 .nav__trigger { display: inline-flex; align-items: center; gap: 0.35rem; font: inherit; font-weight: 500; padding-block: 0.2rem; }
@@ -185,7 +239,37 @@
 .mega__feat a { margin-top: auto; font-size: 0.87rem; font-weight: 600; color: var(--accent-inverse); display: inline-flex; align-items: center; gap: 0.35rem; }
 .mega__feat a svg { width: 15px; height: 15px; transition: transform 0.2s ease; }
 .mega__feat a:hover svg { transform: translateX(3px); }
-@media (max-width: 919px) { .mega { display: none; } }
+/* Mobiel: geen overlay, maar een submenu dat onder "Diensten" openvouwt.
+   De 0fr → 1fr truc animeert de hoogte zonder vaste max-height te gokken;
+   .mega__in is daarbij het overflow-vak (zelfde patroon als de accordion). */
+@media (max-width: 919px) {
+  .nav__item { display: flex; flex-direction: column; align-items: stretch; }
+  .mega {
+    position: static; z-index: auto;
+    opacity: 1; visibility: visible; transform: none; pointer-events: auto;
+    padding: 0;
+    display: grid; grid-template-rows: 0fr;
+    transition: grid-template-rows 0.34s cubic-bezier(0.3, 0.9, 0.3, 1);
+  }
+  .nav__item.is-open .mega { grid-template-rows: 1fr; }
+  .mega__in {
+    grid-template-columns: 1fr; gap: 0;
+    min-height: 0; overflow: hidden;
+    max-width: none; padding: 0.35rem 0 0.85rem;
+    background: transparent; border: none; border-radius: 0; box-shadow: none;
+  }
+  .mega__lbl { order: -1; margin: 0.85rem 0 0.15rem 0.25rem; }
+  .mega__link { padding: 0.85rem 0.25rem; border-radius: var(--radius-sm); }
+  /* Op desktop staat de Tulikivi-kaart in de vierde kolom; in één kolom
+     onderbreekt ze de dienstenlijst, dus schuift ze naar achteren. */
+  .mega__feat { order: 1; grid-row: auto; grid-column: auto; margin-top: 0.85rem; }
+}
+
+/* Tablet: het submenu heeft ruimte voor twee kolommen. */
+@media (min-width: 620px) and (max-width: 919px) {
+  .mega__in { grid-template-columns: 1fr 1fr; column-gap: 1.25rem; }
+  .mega__feat { grid-column: 1 / -1; }
+}
 @media (min-width: 920px) and (max-width: 1119px) {
   .mega__in { grid-template-columns: repeat(3, 1fr); padding: 1.7rem 1.4rem 1.8rem; }
   .mega__feat { grid-row: 2 / 4; grid-column: 3; }
@@ -286,4 +370,5 @@ html.js .reveal.is-visible { transform: none; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   html.js .reveal { transition: none; opacity: 1; transform: none; }
+  .hdr__burger span, .mega { transition: none; }
 }
